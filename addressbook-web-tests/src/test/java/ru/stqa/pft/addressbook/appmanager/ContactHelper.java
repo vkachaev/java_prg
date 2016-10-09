@@ -31,4 +31,23 @@ public class ContactHelper extends HelperBase{
   public void submitContactCreation() {
     click(By.xpath("//div[@id='content']/form/input[21]"));
   }
+
+  public void deleteSelectedContact() {
+
+    //click(By.xpath("//input[@type='checkbox' or @name='selected[]']"));
+    click(By.xpath("//input[@type='button'][@value='Delete']"));;
+    wd.switchTo().alert().accept();
+  }
+
+  public void selectContact() {
+    click(By.xpath("//input[@type='checkbox'][@name='selected[]']"));
+  }
+
+  public void initContactModification() {
+    click(By.xpath("//img[@title='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
 }
