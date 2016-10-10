@@ -16,15 +16,17 @@ public static void main(String[] args) {
 
   System.out.println("Площадь прямоугольника со сторонами " + r.a + " и " + r.b + " = " + r.area());
 
-
-  Point p = new Point(1, 1, 5, 4);
-  System.out.println("Расстояние между точкой с координатой x1=" + p.x1 + "; y1=" + p.y1 + " и координатой x2=" + p.x2 + "; y2=" + p.y2 + " равно " + p.distance());
+  Point p1 = new Point(1, 1);
+  Point p2 = new Point(5, 4);
+  System.out.println("Расстояние между точкой с координатой x1=" + p1.x + "; y1=" + p1.y + " и координатой x2=" + p2.x + "; y2=" + p2.y + " равно " + distance(p1,p2));
 }
   public static void hello(String somebody) {
     System.out.println("Hello, " + somebody + "!");
   }
 
-
+  public static double distance(Point p1, Point p2) {
+    return Math.sqrt(Math.pow((p1.x - p2.x), 2) + Math.pow((p2.y - p1.y), 2));
+  }
 
 
 }

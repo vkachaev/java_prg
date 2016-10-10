@@ -4,19 +4,16 @@ package ru.stqa.pft.sandbox;
  * Created by Katya on 28.09.2016.
  */
 public class Point {
-  double x1;
-  double y1;
-  double x2;
-  double y2;
+  double x;
+  double y;
 
-  public Point(double x1, double y1, double x2, double y2){
-    this.x1 = x1;
-    this.y1 = y1;
-    this.x2 = x2;
-    this.y2 = y2;
+
+  public Point(double x, double y){
+    this.x = x;
+    this.y = y;
+
   }
 
-  public double distance() {
-    return Math.sqrt(Math.pow((this.x2 - this.x1), 2) + Math.pow((this.y2 - this.y1), 2));
-  }
+
+
 }
