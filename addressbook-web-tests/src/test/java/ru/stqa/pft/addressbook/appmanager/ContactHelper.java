@@ -25,6 +25,7 @@ public class ContactHelper extends HelperBase{
     click(By.linkText("home"));
   }
 
+
   public void fillContactForm(ContactData contactData, boolean creation) {
     type(By.name("firstname"),contactData.getFirstname());
     type(By.name("lastname"),contactData.getLastname());
@@ -60,5 +61,17 @@ public class ContactHelper extends HelperBase{
 
   public void submitContactModification() {
     click(By.name("update"));
+  }
+
+  public void createContact(ContactData contact,boolean creation) {
+    initContactCreation();
+    fillContactForm(contact, creation);
+    submitContactCreation();
+    returnToContactPage();
+
+  }
+
+  public boolean isThereAContact() {
+    return isElementPresent(By.xpath("//input[@type='checkbox'][@name='selected[]']"));
   }
 }
