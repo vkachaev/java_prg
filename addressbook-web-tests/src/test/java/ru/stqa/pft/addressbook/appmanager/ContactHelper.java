@@ -74,4 +74,8 @@ public class ContactHelper extends HelperBase{
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//input[@type='checkbox'][@name='selected[]']"));
   }
+
+  public int getContactCount() {
+    return wd.findElements(By.xpath("//input[@type='checkbox'][@name='selected[]']")).size();
+  }
 }
