@@ -13,14 +13,14 @@ import java.util.List;
  */
 public class ContactModificationTests extends TestBase {
 
-  @BeforeTest
+  @BeforeTest (enabled = false)
    public void ensurePreconditions() {
     app.goTo().contactPage();
     if (app.contact().list().size() == 0) {
       app.contact().createContact(new ContactData(null, "Vladimir_update", "Kachaev_update", "Moscow_update", "79001234567_update", "test1"), true);
     }
   }
-  @Test
+  @Test (enabled = false)
   public void testContactModification(){
 
 

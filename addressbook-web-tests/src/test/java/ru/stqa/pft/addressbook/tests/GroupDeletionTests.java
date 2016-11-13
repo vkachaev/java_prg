@@ -9,14 +9,14 @@ import java.util.List;
 
 public class GroupDeletionTests extends TestBase {
 
-    @BeforeMethod (enabled = false)
+    @BeforeMethod
     public void ensurePreconditions(){
         app.goTo().groupPage();
         if (app.group().list().size() == 0 ){
-            app.group().create(new GroupData("test1", null, null));
+            app.group().create(new GroupData().withName("Test1"));
         }
     }
-    @Test (enabled = false)
+    @Test
     public void testGroupDeletion() {
 
         List<GroupData> before = app.group().list();

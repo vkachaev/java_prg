@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ContactDeletionTests extends TestBase {
 
-  @BeforeTest
+  @BeforeTest (enabled = false)
   public void ensurePreconditions() {
     app.goTo().contactPage();
     if (app.contact().list().size() == 0) {
@@ -20,7 +20,7 @@ public class ContactDeletionTests extends TestBase {
     }
   }
 
-  @Test
+  @Test (enabled = false)
   public void testContactDeletion(){
 
     List<ContactData> before = app.contact().list();
