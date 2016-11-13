@@ -1,9 +1,9 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,24 +13,23 @@ import java.util.List;
  */
 public class ContactModificationTests extends TestBase {
 
+  @BeforeTest
+   public void ensurePreconditions() {
+    app.goTo().contactPage();
+    if (app.contact().list().size() == 0) {
+      app.contact().createContact(new ContactData(null, "Vladimir_update", "Kachaev_update", "Moscow_update", "79001234567_update", "test1"), true);
+    }
+  }
   @Test
   public void testContactModification(){
 
-    app.getNavigationHelper().gotoContactPage();
 
-    if (!app.getContactHelper().isThereAContact()){
-      app.getContactHelper().createContact(new ContactData(null, "Vladimir_update", "Kachaev_update", "Moscow_update", "79001234567_update","test1"), true);
-    }
-    List<ContactData> before = app.getContactHelper().getContactList();
+    List<ContactData> before = app.contact().list();
+    int index = before.size() - 1;
+    ContactData contact = new ContactData(before.get(index).getId(), "Kachaev_update Vladimir_update", "Vladimir_update", "Kachaev_update",null, null, null);
+    app.contact().modifyContact(index, contact);
 
-    app.getContactHelper().selectContact(before.size() - 1);
-    app.getContactHelper().initContactModification(before.size() - 1);
-    ContactData contact = new ContactData(before.get(before.size()-1).getId(), "Kachaev_update Vladimir_update", "Vladimir_update", "Kachaev_update",null, null, null);
-    app.getContactHelper().fillContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.getNavigationHelper().gotoHomePage();
-
-    List<ContactData> after = app.getContactHelper().getContactList();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
     //удаляем в списке последнюю запись, т.к. она была изменена
@@ -44,4 +43,6 @@ public class ContactModificationTests extends TestBase {
     Assert.assertEquals(before, after);
 
   }
+
+
 }

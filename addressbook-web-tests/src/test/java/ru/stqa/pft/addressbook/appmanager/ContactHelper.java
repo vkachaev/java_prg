@@ -77,6 +77,18 @@ wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     returnToContactPage();
 
   }
+  public void modifyContact(int index, ContactData contact) {
+    selectContact(index);
+    initContactModification(index);
+    fillContactForm(contact, false);
+    submitContactModification();
+    returnToContactPage();
+  }
+  public void delete(int index) {
+   selectContact(index);
+   deleteSelectedContact();
+   returnToContactPage();
+  }
 
   public boolean isThereAContact() {
     return isElementPresent(By.xpath("//input[@type='checkbox'][@name='selected[]']"));
@@ -86,7 +98,7 @@ wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     return wd.findElements(By.xpath("//input[@type='checkbox'][@name='selected[]']")).size();
   }
 
-  public List<ContactData> getContactList() {
+  public List<ContactData> list() {
     List<ContactData> contacts = new ArrayList<ContactData>();
     //List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
     List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
