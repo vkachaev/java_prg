@@ -4,35 +4,38 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /**
  * Created by Katya on 09.10.2016.
  */
 public class ContactDeletionTests extends TestBase {
 
-  @BeforeTest (enabled = false)
+  @BeforeTest
   public void ensurePreconditions() {
     app.goTo().contactPage();
-    if (app.contact().list().size() == 0) {
-      app.contact().createContact(new ContactData(null, "Vladimir_update", "Kachaev_update", "Moscow_update", "79001234567_update", "test1"), true);
+    if (app.contact().all().size() == 0) {
+      app.contact().createContact(new ContactData().withName(null).withLastname("Kachaev update").withFirstname("Vladimir update").withGroup("test1"),true);
     }
   }
 
-  @Test (enabled = false)
+  @Test
   public void testContactDeletion(){
 
-    List<ContactData> before = app.contact().list();
-    int index = before.size() - 1;
-    app.contact().delete(index);
+    Contacts before = app.contact().all();
+    ContactData deletedContact = before.iterator().next();
+    app.contact().delete(deletedContact);
 
-    List<ContactData> after = app.contact().list();
-    Assert.assertEquals(after.size(), before.size() - 1);
-    //удаляем ненужный элемент
-    before.remove(before.size() - 1);
-    //Assert.assertEquals(new HashSet<Object>(before), new HashSet<Object>(after));
-    Assert.assertEquals(before, after);
+    Contacts after = app.contact().all();
+    //Assert.assertEquals(after.size(), before.size() - 1);
+    before.remove(deletedContact);
+    assertThat(after, equalTo(before.without(deletedContact)));
   }
 
 

@@ -8,6 +8,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
@@ -51,21 +52,19 @@ public class ContactHelper extends HelperBase{
 
   public void deleteSelectedContact() {
 
-    //click(By.xpath("//input[@type='checkbox' or @name='selected[]']"));
     click(By.xpath("//input[@type='button'][@value='Delete']"));;
     wd.switchTo().alert().accept();
   }
 
-  public void selectContact(int index) {
-    wd.findElements(By.xpath("//input[@type='checkbox'][@name='selected[]']")).get(index).click();
-    //click(By.xpath("//input[@type='checkbox'][@name='selected[]']"));
+
+  private void selectContactById(int id) {
+    wd.findElement(By.cssSelector("input[id='" + id + "']")).click();
   }
 
-  public void initContactModification(int index) {
-wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
-    //click(By.xpath("//img[@title='Edit']"));
-  }
+  public void initContactModificationById(int id) {
+    wd.findElement(By.xpath("//a[@href='edit.php?id=" + id + "']")).click();
 
+  }
   public void submitContactModification() {
     click(By.name("update"));
   }
@@ -77,17 +76,46 @@ wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     returnToContactPage();
 
   }
-  public void modifyContact(int index, ContactData contact) {
-    selectContact(index);
-    initContactModification(index);
+  public void modify(ContactData contact) {
+    selectContactById(contact.getId());
+    initContactModificationById(contact.getId());
     fillContactForm(contact, false);
     submitContactModification();
     returnToContactPage();
   }
-  public void delete(int index) {
-   selectContact(index);
-   deleteSelectedContact();
-   returnToContactPage();
+
+  public void delete(ContactData contact) {
+    selectContactById(contact.getId());
+    deleteSelectedContact();
+    returnToContactPage();
+  }
+
+  public Contacts all() {
+    Contacts contacts = new Contacts();
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+    for (WebElement element : elements){
+      String name = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+      contacts.add(new ContactData().withId(id).withName(name)); // добавляем созданный объект в список
+    }
+    return contacts;
+  }
+
+  //unused
+  public void initContactModification(int index) {
+    wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
+  }
+  public List<ContactData> list() {
+    List<ContactData> contacts = new ArrayList<ContactData>();
+    //List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
+    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
+    for (WebElement element : elements){
+      String name = element.getText();
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+      ContactData contact = new ContactData().withId(id).withName(name); // создаем объект типа contactDate
+      contacts.add(contact); // добавляем созданный объект в список
+    }
+    return contacts;
   }
 
   public boolean isThereAContact() {
@@ -98,21 +126,13 @@ wd.findElements(By.xpath("//img[@title='Edit']")).get(index).click();
     return wd.findElements(By.xpath("//input[@type='checkbox'][@name='selected[]']")).size();
   }
 
-  public List<ContactData> list() {
-    List<ContactData> contacts = new ArrayList<ContactData>();
-    //List<WebElement> elements = wd.findElements(By.xpath("//tr[@name='entry']"));
-    List<WebElement> elements = wd.findElements(By.cssSelector("tr[name='entry']"));
-    for (WebElement element : elements){
-      String name = element.getText();
-      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
+  public void selectContact(int index) {
+    wd.findElements(By.xpath("//input[@type='checkbox'][@name='selected[]']")).get(index).click();
+  }
 
-      //String conLastName = element.findElement(By.xpath("//td[4]")).getText();
-      //String conLastName = element.findElement(By.tagName("td")).getText();
-      //String conName = element.findElement(By.tagName("td")).getText();
-      ContactData contact = new ContactData(id, name, null, null, null, null, null); // создаем объект типа contactDate
-      contacts.add(contact); // добавляем созданный объект в список
-    }
-
-    return contacts;
+  public void delete(int index) {
+    selectContact(index);
+    deleteSelectedContact();
+    returnToContactPage();
   }
 }

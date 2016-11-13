@@ -1,33 +1,68 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-  private final String name;
+  private String name;
   //private final String name;
   private int id;
-  private final String firstname;
-  private final String lastname;
-  private final String address;
-  private final String telephonehome;
+  private String firstname;
+  private String lastname;
+  private String address;
+  private String telephonehome;
   private String group;
 
-  public ContactData(String name, String firstname, String lastname, String address, String telephonehome, String group) {
-    this.id = Integer.MAX_VALUE;
+  public ContactData withName(String name) {
     this.name = name;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = address;
-    this.telephonehome = telephonehome;
-    this.group = group;
+    return this;
   }
-  public ContactData(int id, String name, String firstname, String lastname, String address, String telephonehome, String group) {
+
+  public ContactData withFirstname(String firstname) {
+    this.firstname = firstname;
+    return this;
+  }
+
+  public ContactData withLastname(String lastname) {
+    this.lastname = lastname;
+    return this;
+  }
+
+  public ContactData withAddress(String address) {
+    this.address = address;
+    return this;
+  }
+
+  public ContactData withTelephonehome(String telephonehome) {
+    this.telephonehome = telephonehome;
+    return this;
+  }
+
+  public ContactData withGroup(String group) {
+    this.group = group;
+    return this;
+  }
+
+  public ContactData withId(int id) {
     this.id = id;
-    this.name = name;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.address = address;
-    this.telephonehome = telephonehome;
-    this.group = group;
+    return this;
   }
+
+  //public ContactData(String name, String firstname, String lastname, String address, String telephonehome, String group) {
+   // this.id = Integer.MAX_VALUE;
+   // this.name = name;
+   // this.firstname = firstname;
+   /// this.lastname = lastname;
+   // this.address = address;
+  //  this.telephonehome = telephonehome;
+  //  this.group = group;
+ // }
+ // public ContactData(int id, String name, String firstname, String lastname, String address, String telephonehome, String group) {
+ //   this.id = id;
+ //   this.name = name;
+ //   this.firstname = firstname;
+ //   this.lastname = lastname;
+//    this.address = address;
+ //   this.telephonehome = telephonehome;
+ //   this.group = group;
+//  }
 
   @Override
   public boolean equals(Object o) {
@@ -43,10 +78,6 @@ public class ContactData {
   @Override
   public int hashCode() {
     return name != null ? name.hashCode() : 0;
-  }
-
-  public void setId(int id) {
-    this.id = id;
   }
 
   @Override

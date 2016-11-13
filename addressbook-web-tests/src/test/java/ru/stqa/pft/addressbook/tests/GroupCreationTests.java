@@ -1,34 +1,42 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.*;
 
 public class GroupCreationTests extends TestBase {
 
   @Test
   public void testGroupCreation() {
     app.goTo().groupPage();
-    List<GroupData> before = app.group().list();
+    Groups before = app.group().all();
     GroupData group = new GroupData().withName("Test2");
     app.group().create(group);
 
-    List<GroupData> after = app.group().list();
-    Assert.assertEquals(after.size(), before.size() + 1); //сравниваем размеры списков
+    Groups after = app.group().all();
+    assertThat(after.size(), equalTo(before.size() + 1));
+    //функция преобразования объекта в число
+    //нужно новой добавленой группе присвоить правильный id
+    //коллекция с id певращаем в поток объектов типа GroupData превратим в поток id при помощи mapToInt
+    //mapToInt описывает как объект преобразуется в число, передаем анонимную функцию
+    //которая посл-во будет применяться ко всем элементам потока и каждый из них будет преобразовываться в число
+    //в результате получаем поток целых чисел
 
-    //Comparator<? super GroupData> byId = (Comparator<GroupData>) (o1, o2) -> Integer.compare(o1.getId(), o2.getId());
-    //список превращаем в поток, по этому потоку пробегается функция comparator, при этом сравниваются объекты groupData
-    //путем сравнения их идентификаторов, на выходе будет группа с макс идентификатором и берем ее идентификатор
+    //hamcrest
+    assertThat(after, equalTo(
+            before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
-    before.add(group);
-    Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    //преобразруем упорядоченный список в неупорядоченный
-    Assert.assertEquals(before, after);
   }
 
 }
