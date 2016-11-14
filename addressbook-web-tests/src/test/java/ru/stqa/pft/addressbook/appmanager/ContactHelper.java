@@ -100,19 +100,15 @@ public class ContactHelper extends HelperBase{
       List<WebElement> cells = element.findElements(By.tagName("td"));
       String lastname = cells.get(1).getText();
       String firstname = cells.get(2).getText();
-      String[] phones = cells.get(5).getText().split("\n");
+      String allPhones = cells.get(5).getText();
       String address = cells.get(3).getText();
-      String[] email = cells.get(4).getText().split("\n");
+      String allemails = cells.get(4).getText();
       //String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       contactCache.add(new ContactData().withId(id).withLastname(lastname).withFirstname(firstname)
-              .withHome(phones[0])
-              .withMobile(phones[1])
-              .withWork(phones[2])
+              .withAllPhones(allPhones)
               .withAddress(address)
-              .withEmail1(email[0])
-              .withEmail2(email[1])
-              .withEmail3(email[2])); // добавляем созданный объект в список
+              .withAllEmails(allemails)); // добавляем созданный объект в список
     }
     return new Contacts(contactCache);
   }
