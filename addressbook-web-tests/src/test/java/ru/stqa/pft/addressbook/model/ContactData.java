@@ -93,31 +93,6 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withHome(String home) {
-    this.home = home;
-    return this;
-  }
-  //public ContactData(String name, String firstname, String lastname, String address, String telephonehome, String group) {
-   // this.id = Integer.MAX_VALUE;
-   // this.name = name;
-   // this.firstname = firstname;
-   /// this.lastname = lastname;
-   // this.address = address;
-  //  this.telephonehome = telephonehome;
-  //  this.group = group;
- // }
- // public ContactData(int id, String name, String firstname, String lastname, String address, String telephonehome, String group) {
- //   this.id = id;
- //   this.name = name;
- //   this.firstname = firstname;
- //   this.lastname = lastname;
-//    this.address = address;
- //   this.telephonehome = telephonehome;
- //   this.group = group;
-
-  //  }
-
-
   @Override
   public String toString() {
     return "ContactData{" +
@@ -125,14 +100,23 @@ public class ContactData {
             ", firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
             ", address='" + address + '\'' +
+            ", allemails='" + allemails + '\'' +
             ", email1='" + email1 + '\'' +
             ", email2='" + email2 + '\'' +
             ", email3='" + email3 + '\'' +
             ", group='" + group + '\'' +
+            ", allphones='" + allphones + '\'' +
             ", home='" + home + '\'' +
             ", work='" + work + '\'' +
             ", mobile='" + mobile + '\'' +
+            ", contactdetails='" + contactdetails + '\'' +
+            ", allcontacts='" + allcontacts + '\'' +
             '}';
+  }
+
+  public ContactData withHome(String home) {
+    this.home = home;
+    return this;
   }
 
   public int getId() {

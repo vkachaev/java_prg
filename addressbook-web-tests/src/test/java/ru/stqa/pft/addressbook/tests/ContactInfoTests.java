@@ -22,29 +22,28 @@ public class ContactInfoTests extends TestBase {
     app.goTo().gotoHomePage();
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromDetails = app.contact().infoFromDetails(contact);
-    String so = mergeContactsDetails(contactInfoFromDetails);
-    assertThat(so, equalTo(mergeContactsFromMain(contact)));
-    Assert.assertEquals(mergeContactsDetails(contactInfoFromDetails), mergeContactsFromMain(contact));
+    ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
 
+    Assert.assertEquals(mergeContactsDetails(contactInfoFromDetails), mergeContactsFromEdit(contactInfoFromEditForm).replaceAll("[\\n\\r]",""));
+    //assertThat(equalTo(mergeContactsDetails(contactInfoFromDetails)), equalTo(mergeContactsFromEdit(contactInfoFromEditForm).replaceAll("[\\n\\r]","")));
   }
 
-  private String mergeContactsFromMain(ContactData contact) {
-    return Arrays.asList(contact.getAllcontacts())
+  private String mergeContactsFromEdit(ContactData contact) {
+    return Arrays.asList(contact.getFirstname(),contact.getLastname(),contact.getAddress(),contact.getHomePhone(),contact.getMobilePhone(),contact.getWorkPhone())
             .stream().filter((s -> ! s.equals("")))
-
-            .map(ContactInfoTests::cleaned)
+            .map(ContactInfoTests::cleanedDetail)
             .collect(Collectors.joining("\n"));
   }
   private String mergeContactsDetails(ContactData contact) {
     return Arrays.asList(contact.getContactdetails())
-            .stream().filter((s -> ! s.equals("")))
-
-             .map(ContactInfoTests::cleaned)
+            .stream()
+             .map(ContactInfoTests::cleanedDetail)
             .collect(Collectors.joining("\n"));
   }
 
-  public static String cleaned(String phone){
+  public static String cleanedDetail(String contactdetail){
     //for space, tab, enter
-    return phone.replaceAll("\\s","").replaceAll("[-()]","").replaceAll("W:","").replaceAll("H:","").replaceAll("M:","");
+    return contactdetail.replaceAll("\\s","").replaceAll("[-()]","").replaceAll("W:","").replaceAll("H:","").replaceAll("M:","");
   }
+
 }
