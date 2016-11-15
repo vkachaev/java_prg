@@ -16,7 +16,18 @@ public class ContactData {
   private String home;
   private String work;
   private String mobile;
+  private String contactdetails;
+  private String allcontacts;
 
+   public ContactData withAllcontacts(String allcontacts) {
+    this.allcontacts = allcontacts;
+    return this;
+  }
+
+  public ContactData withContactdetails(String contactdetails) {
+    this.contactdetails = contactdetails;
+    return this;
+  }
   //public ContactData withName(String name) {
   //  this.name = name;
   //  return this;
@@ -47,12 +58,10 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withEmail2(String email2) {
     this.email2 = email2;
     return this;
   }
-
 
   public ContactData withEmail3(String email3) {
     this.email3 = email3;
@@ -84,7 +93,6 @@ public class ContactData {
     return this;
   }
 
-
   public ContactData withHome(String home) {
     this.home = home;
     return this;
@@ -109,43 +117,6 @@ public class ContactData {
 
   //  }
 
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-
-    ContactData that = (ContactData) o;
-
-    if (id != that.id) return false;
-    if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
-    if (address != null ? !address.equals(that.address) : that.address != null) return false;
-    if (email1 != null ? !email1.equals(that.email1) : that.email1 != null) return false;
-    if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
-    if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-    if (group != null ? !group.equals(that.group) : that.group != null) return false;
-    if (home != null ? !home.equals(that.home) : that.home != null) return false;
-    if (work != null ? !work.equals(that.work) : that.work != null) return false;
-    return mobile != null ? mobile.equals(that.mobile) : that.mobile == null;
-
-  }
-
-  @Override
-  public int hashCode() {
-    int result = id;
-    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
-    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
-    result = 31 * result + (address != null ? address.hashCode() : 0);
-    result = 31 * result + (email1 != null ? email1.hashCode() : 0);
-    result = 31 * result + (email2 != null ? email2.hashCode() : 0);
-    result = 31 * result + (email3 != null ? email3.hashCode() : 0);
-    result = 31 * result + (group != null ? group.hashCode() : 0);
-    result = 31 * result + (home != null ? home.hashCode() : 0);
-    result = 31 * result + (work != null ? work.hashCode() : 0);
-    result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
-    return result;
-  }
 
   @Override
   public String toString() {
@@ -204,8 +175,57 @@ public class ContactData {
 
   public String getMobilePhone() { return mobile;  }
   //to receive field
+
+  public String getContactdetails() { return contactdetails; }
+
+  public String getAllcontacts() { return allcontacts; }
+
   public String getGroup() {
     return group;
   }
 
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+
+    ContactData that = (ContactData) o;
+
+    if (id != that.id) return false;
+    if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+    if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+    if (address != null ? !address.equals(that.address) : that.address != null) return false;
+    if (allemails != null ? !allemails.equals(that.allemails) : that.allemails != null) return false;
+    if (email1 != null ? !email1.equals(that.email1) : that.email1 != null) return false;
+    if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
+    if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
+    if (group != null ? !group.equals(that.group) : that.group != null) return false;
+    if (allphones != null ? !allphones.equals(that.allphones) : that.allphones != null) return false;
+    if (home != null ? !home.equals(that.home) : that.home != null) return false;
+    if (work != null ? !work.equals(that.work) : that.work != null) return false;
+    if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
+    return contactdetails != null ? contactdetails.equals(that.contactdetails) : that.contactdetails == null;
+
+  }
+
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+    result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+    result = 31 * result + (address != null ? address.hashCode() : 0);
+    result = 31 * result + (allemails != null ? allemails.hashCode() : 0);
+    result = 31 * result + (email1 != null ? email1.hashCode() : 0);
+    result = 31 * result + (email2 != null ? email2.hashCode() : 0);
+    result = 31 * result + (email3 != null ? email3.hashCode() : 0);
+    result = 31 * result + (group != null ? group.hashCode() : 0);
+    result = 31 * result + (allphones != null ? allphones.hashCode() : 0);
+    result = 31 * result + (home != null ? home.hashCode() : 0);
+    result = 31 * result + (work != null ? work.hashCode() : 0);
+    result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
+    result = 31 * result + (contactdetails != null ? contactdetails.hashCode() : 0);
+    return result;
+  }
+
 }
+

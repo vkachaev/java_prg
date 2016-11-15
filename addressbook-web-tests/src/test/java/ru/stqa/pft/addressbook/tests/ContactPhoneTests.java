@@ -22,7 +22,7 @@ public class ContactPhoneTests extends TestBase {
     Contacts before = app.contact().all();
     ContactData contact = before.iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
-
+    String som = mergePhones(contactInfoFromEditForm);
     assertThat(contact.getAllphones(), equalTo(mergePhones(contactInfoFromEditForm)));
 
   }
