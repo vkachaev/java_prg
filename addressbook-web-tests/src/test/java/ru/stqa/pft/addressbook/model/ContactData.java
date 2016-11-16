@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
   //private String name;
   //private final String name;
@@ -18,8 +20,9 @@ public class ContactData {
   private String mobile;
   private String contactdetails;
   private String allcontacts;
+  private File photo;
 
-   public ContactData withAllcontacts(String allcontacts) {
+  public ContactData withAllcontacts(String allcontacts) {
     this.allcontacts = allcontacts;
     return this;
   }
@@ -90,6 +93,11 @@ public class ContactData {
 
   public ContactData withMobile(String mobile) {
     this.mobile = mobile;
+    return this;
+  }
+
+  public ContactData withPhoto(File photo) {
+    this.photo = photo;
     return this;
   }
 
@@ -168,6 +176,9 @@ public class ContactData {
     return group;
   }
 
+  public File getPhoto() { return photo;  }
+
+
   @Override
   public boolean equals(Object o) {
     if (this == o) return true;
@@ -188,7 +199,10 @@ public class ContactData {
     if (home != null ? !home.equals(that.home) : that.home != null) return false;
     if (work != null ? !work.equals(that.work) : that.work != null) return false;
     if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
-    return contactdetails != null ? contactdetails.equals(that.contactdetails) : that.contactdetails == null;
+    if (contactdetails != null ? !contactdetails.equals(that.contactdetails) : that.contactdetails != null)
+      return false;
+    if (allcontacts != null ? !allcontacts.equals(that.allcontacts) : that.allcontacts != null) return false;
+    return photo != null ? photo.equals(that.photo) : that.photo == null;
 
   }
 
@@ -208,8 +222,9 @@ public class ContactData {
     result = 31 * result + (work != null ? work.hashCode() : 0);
     result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
     result = 31 * result + (contactdetails != null ? contactdetails.hashCode() : 0);
+    result = 31 * result + (allcontacts != null ? allcontacts.hashCode() : 0);
+    result = 31 * result + (photo != null ? photo.hashCode() : 0);
     return result;
   }
-
 }
 
