@@ -103,14 +103,14 @@ public class ContactHelper extends HelperBase{
       String allPhones = cells.get(5).getText();
       String address = cells.get(3).getText();
       String allemails = cells.get(4).getText();
-      String allcontacts = firstname + lastname + address + allPhones;
+      //String allcontacts = firstname + lastname + address + allPhones;
       //String name = element.getText();
       int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("id"));
       contactCache.add(new ContactData().withId(id).withLastname(lastname).withFirstname(firstname)
               .withAllPhones(allPhones)
               .withAddress(address)
-              .withAllEmails(allemails)
-              .withAllcontacts(allcontacts)); // добавляем созданный объект в список
+              .withAllEmails(allemails));
+              //.withAllcontacts(allcontacts)); // добавляем созданный объект в список
     }
     return new Contacts(contactCache);
   }

@@ -1,18 +1,26 @@
 package ru.stqa.pft.addressbook.model;
 
-import java.io.File;
+import com.google.gson.annotations.Expose;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import java.io.File;
+@XStreamAlias("contact")
 public class ContactData {
   //private String name;
   //private final String name;
+  @XStreamOmitField
   private int id;
+  @Expose
   private String firstname;
+  @Expose
   private String lastname;
   private String address;
   private String allemails;
   private String email1;
   private String email2;
   private String email3;
+  @Expose
   private String group;
   private String allphones;
   private String home;
@@ -194,15 +202,13 @@ public class ContactData {
     if (email1 != null ? !email1.equals(that.email1) : that.email1 != null) return false;
     if (email2 != null ? !email2.equals(that.email2) : that.email2 != null) return false;
     if (email3 != null ? !email3.equals(that.email3) : that.email3 != null) return false;
-    if (group != null ? !group.equals(that.group) : that.group != null) return false;
     if (allphones != null ? !allphones.equals(that.allphones) : that.allphones != null) return false;
     if (home != null ? !home.equals(that.home) : that.home != null) return false;
     if (work != null ? !work.equals(that.work) : that.work != null) return false;
     if (mobile != null ? !mobile.equals(that.mobile) : that.mobile != null) return false;
     if (contactdetails != null ? !contactdetails.equals(that.contactdetails) : that.contactdetails != null)
       return false;
-    if (allcontacts != null ? !allcontacts.equals(that.allcontacts) : that.allcontacts != null) return false;
-    return photo != null ? photo.equals(that.photo) : that.photo == null;
+    return allcontacts != null ? allcontacts.equals(that.allcontacts) : that.allcontacts == null;
 
   }
 
@@ -216,14 +222,12 @@ public class ContactData {
     result = 31 * result + (email1 != null ? email1.hashCode() : 0);
     result = 31 * result + (email2 != null ? email2.hashCode() : 0);
     result = 31 * result + (email3 != null ? email3.hashCode() : 0);
-    result = 31 * result + (group != null ? group.hashCode() : 0);
     result = 31 * result + (allphones != null ? allphones.hashCode() : 0);
     result = 31 * result + (home != null ? home.hashCode() : 0);
     result = 31 * result + (work != null ? work.hashCode() : 0);
     result = 31 * result + (mobile != null ? mobile.hashCode() : 0);
     result = 31 * result + (contactdetails != null ? contactdetails.hashCode() : 0);
     result = 31 * result + (allcontacts != null ? allcontacts.hashCode() : 0);
-    result = 31 * result + (photo != null ? photo.hashCode() : 0);
     return result;
   }
 }

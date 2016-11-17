@@ -21,13 +21,14 @@ public class ContactCreationTests extends TestBase {
 
         Contacts before = app.contact().all();
         File photo = new File("src/test/resources/phot.png");
-        ContactData contact = new ContactData().withLastname("Kachaev2").withFirstname("Vladimir2").withGroup("test1").withPhoto(photo);
+        ContactData contact = new ContactData().withLastname("Kachaev2").withFirstname("Vladimir2")
+                .withGroup("test1").withPhoto(photo).withAddress("").withAllEmails("").withAllPhones("");
         app.contact().createContact(contact, true);
         assertThat(app.contact().count(), equalTo(before.size() + 1 ));
         Contacts after = app.contact().all();
-        Assert.assertEquals(after, before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())));
-        //assertThat(after, equalTo(
-          //      before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+        //Assert.assertEquals(after, before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())));
+        assertThat(after, equalTo(
+                before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
     }
     @Test (enabled = false)
