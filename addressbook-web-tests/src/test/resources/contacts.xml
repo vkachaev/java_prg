@@ -2,16 +2,25 @@
   <contact>
     <firstname>firstname 0</firstname>
     <lastname>lastname 0</lastname>
+    <address></address>
+    <allemails></allemails>
     <group>test 0</group>
+    <allphones></allphones>
   </contact>
   <contact>
     <firstname>firstname 1</firstname>
     <lastname>lastname 1</lastname>
+    <address></address>
+    <allemails></allemails>
     <group>test 1</group>
+    <allphones></allphones>
   </contact>
   <contact>
     <firstname>firstname 2</firstname>
     <lastname>lastname 2</lastname>
+    <address></address>
+    <allemails></allemails>
     <group>test 2</group>
+    <allphones></allphones>
   </contact>
 </list>
