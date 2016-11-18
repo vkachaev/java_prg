@@ -2,25 +2,25 @@
   <contact>
     <firstname>firstname 0</firstname>
     <lastname>lastname 0</lastname>
-    <address></address>
-    <allemails></allemails>
+    <address>some address</address>
+    <email1>email1</email1>
+    <email2>email2</email2>
+    <email3>email3</email3>
     <group>test 0</group>
-    <allphones></allphones>
+    <home>456</home>
+    <work>123</work>
+    <mobile>789</mobile>
   </contact>
   <contact>
     <firstname>firstname 1</firstname>
     <lastname>lastname 1</lastname>
-    <address></address>
-    <allemails></allemails>
+    <address>some address</address>
+    <email1>email1</email1>
+    <email2>email2</email2>
+    <email3>email3</email3>
     <group>test 1</group>
-    <allphones></allphones>
-  </contact>
-  <contact>
-    <firstname>firstname 2</firstname>
-    <lastname>lastname 2</lastname>
-    <address></address>
-    <allemails></allemails>
-    <group>test 2</group>
-    <allphones></allphones>
+    <home>456</home>
+    <work>123</work>
+    <mobile>789</mobile>
   </contact>
 </list>

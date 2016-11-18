@@ -2,25 +2,25 @@
   {
     "firstname": "firstname 0",
     "lastname": "lastname 0",
-    "address": "",
-    "allemails": "",
+    "address": "some address",
+    "email1": "email1",
+    "email2": "email2",
+    "email3": "email3",
     "group": "test 0",
-    "allphones": ""
+    "home": "456",
+    "work": "123",
+    "mobile": "789"
   },
   {
     "firstname": "firstname 1",
     "lastname": "lastname 1",
-    "address": "",
-    "allemails": "",
+    "address": "some address",
+    "email1": "email1",
+    "email2": "email2",
+    "email3": "email3",
     "group": "test 1",
-    "allphones": ""
-  },
-  {
-    "firstname": "firstname 2",
-    "lastname": "lastname 2",
-    "address": "",
-    "allemails": "",
-    "group": "test 2",
-    "allphones": ""
+    "home": "456",
+    "work": "123",
+    "mobile": "789"
   }
 ]

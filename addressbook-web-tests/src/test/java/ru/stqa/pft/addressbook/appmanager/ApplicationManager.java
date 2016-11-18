@@ -28,6 +28,7 @@ public class ApplicationManager{
   private GroupHelper groupHelper;
   private ContactHelper contactHelper;
   private String browser;
+  private DbHelper dbHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -39,6 +40,8 @@ public class ApplicationManager{
 
   public void init() throws IOException {
     String target = System.getProperty("target", "local");
+    //инициализируем соединение к базе
+    dbHelper = new DbHelper();
     //либо читаем target.properties либо local.properties
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
     if (Objects.equals(browser, BrowserType.FIREFOX)){
@@ -76,4 +79,6 @@ public class ApplicationManager{
   public NavigationHelper goTo() {
     return navigationHelper;
   }
+  //метод который будет возвращать помошника
+  public DbHelper db(){return dbHelper;}
 }

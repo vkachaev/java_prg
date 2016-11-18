@@ -3,35 +3,85 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Table;
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.File;
+
+@Entity
+@javax.persistence.Table(name ="addressbook")
 @XStreamAlias("contact")
 public class ContactData {
   //private String name;
   //private final String name;
   @XStreamOmitField
+  @Id
+  @Column(name = "id")
   private int id;
+
   @Expose
+  @Column(name = "firstname")
   private String firstname;
+
   @Expose
+  @Column(name = "lastname")
   private String lastname;
+
   @Expose
+  @Column(name = "address")
+  @Type(type = "text")
   private String address;
   @Expose
+  @Transient
   private String allemails;
+
+  @Expose
+  @Column(name = "email")
+  @Type(type = "text")
   private String email1;
+
+  @Expose
+  @Column(name = "email2")
+  @Type(type = "text")
   private String email2;
+
+  @Expose
+  @Column(name = "email3")
+  @Type(type = "text")
   private String email3;
+
   @Expose
+  @Transient
   private String group;
-  @Expose
+
+  @Transient
   private String allphones;
+
+  @Expose
+  @Column(name = "home")
+  @Type(type = "text")
   private String home;
+
+  @Expose
+  @Column(name = "work")
+  @Type(type = "text")
   private String work;
+
+  @Expose
+  @Column(name = "mobile")
+  @Type(type = "text")
   private String mobile;
+  @Transient
   private String contactdetails;
+  @Transient
   private String allcontacts;
-  private File photo;
+
+  @Transient
+//  @Column(name = "photo")
+//  @Type(type = "text")
+  private String photo;
 
   public ContactData withAllcontacts(String allcontacts) {
     this.allcontacts = allcontacts;
@@ -108,7 +158,7 @@ public class ContactData {
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo;
+    this.photo = photo.getPath();
     return this;
   }
 
@@ -187,7 +237,7 @@ public class ContactData {
     return group;
   }
 
-  public File getPhoto() { return photo;  }
+  public File getPhoto() { return new File(photo);  }
 
 
   @Override

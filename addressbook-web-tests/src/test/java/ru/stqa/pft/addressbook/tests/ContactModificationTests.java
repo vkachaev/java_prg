@@ -20,23 +20,23 @@ public class ContactModificationTests extends TestBase {
 
   @BeforeTest
    public void ensurePreconditions() {
-    app.goTo().contactPage();
-    if (app.contact().all().size() == 0) {
+    if (app.db().contacts().size() == 0){
+      app.goTo().contactPage();
       app.contact().createContact(new ContactData().withLastname("Kachaev update").withFirstname("Vladimir update").withGroup("test1"),true);
     }
   }
   @Test
   public void testContactModification(){
-
-
-    Contacts before = app.contact().all();
+    Contacts before = app.db().contacts();
     ContactData modifiedContact = before.iterator().next();
     ContactData contact = new ContactData().withId(modifiedContact.getId()).withLastname("Kachaev2").withFirstname("Vladimir2")
-            .withGroup("test1").withAllEmails("").withAllPhones("").withAddress("");
+            .withGroup("test1").withAddress("erfjwnfkre").withHome("324298").withMobile("123").withWork("24789").withEmail1("reheifqq")
+            .withEmail2("few").withEmail3("grw e");
     app.contact().modify(contact);
+    app.goTo().gotoHomePage();
     assertThat(app.contact().count(), equalTo(before.size()));
 
-    Contacts after = app.contact().all();
+    Contacts after = app.db().contacts();
     //удаляем в списке последнюю запись, т.к. она была изменена
     before.remove(modifiedContact);
     //добавляем созданный объект

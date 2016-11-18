@@ -39,7 +39,7 @@ public class ContactCreationTests extends TestBase {
     return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
   }
   @DataProvider
-  public Iterator<Object[]> validGContactsFromJson() throws IOException {
+  public Iterator<Object[]> validContactsFromJson() throws IOException {
     try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))){
       String json = "";
       String line = reader.readLine();
@@ -53,16 +53,16 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
-  @Test (dataProvider = "validGContactsFromJson")
+  @Test (dataProvider = "validContactsFromJson")
     public void testContactCreation(ContactData contact) {
         app.goTo().contactPage();
 
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
         //File photo = new File("src/test/resources/phot.png");
 
        app.contact().createContact(contact, true);
         assertThat(app.contact().count(), equalTo(before.size() + 1 ));
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
         //Assert.assertEquals(after, before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())));
         assertThat(after, equalTo(
                 before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
