@@ -8,6 +8,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -53,19 +55,29 @@ public class ContactCreationTests extends TestBase {
     }
   }
 
-  @Test (dataProvider = "validContactsFromJson")
-    public void testContactCreation(ContactData contact) {
+  @Test //(dataProvider = "validContactsFromJson")
+    //public void testContactCreation(ContactData contact) {
+    public void testContactCreation() {
+    //создать предусловие создать группу если нет группы!
+    if (app.db().groups().size() == 0){
+      app.goTo().groupPage();
+      app.group().create(new GroupData().withName("Test1"));
+    }
+    Groups groups = app.db().groups();
         app.goTo().contactPage();
-
         Contacts before = app.db().contacts();
         //File photo = new File("src/test/resources/phot.png");
 
-       app.contact().createContact(contact, true);
+      ContactData newcontact = new ContactData().withLastname("Kachaev2").withFirstname("Vladimir2")
+            .inGroups(groups.iterator().next()).withAddress("erfjwnfkre").withHome("324298").withMobile("123").withWork("24789").withEmail1("reheifqq")
+            .withEmail2("few").withEmail3("grw e");
+
+      app.contact().createContact(newcontact, true);
         assertThat(app.contact().count(), equalTo(before.size() + 1 ));
         Contacts after = app.db().contacts();
         //Assert.assertEquals(after, before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt())));
         assertThat(after, equalTo(
-                before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+                before.withAdded(newcontact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
 
     }
     @Test (enabled = false)

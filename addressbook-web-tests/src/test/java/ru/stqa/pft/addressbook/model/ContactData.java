@@ -3,12 +3,15 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.Table;
 
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @javax.persistence.Table(name ="addressbook")
@@ -52,10 +55,6 @@ public class ContactData {
   @Type(type = "text")
   private String email3;
 
-  @Expose
-  @Transient
-  private String group;
-
   @Transient
   private String allphones;
 
@@ -82,6 +81,15 @@ public class ContactData {
 //  @Column(name = "photo")
 //  @Type(type = "text")
   private String photo;
+
+  //@Expose
+  //@Transient
+  //private String group;
+
+  @ManyToMany (fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
 
   public ContactData withAllcontacts(String allcontacts) {
     this.allcontacts = allcontacts;
@@ -132,10 +140,10 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+  //public ContactData withGroup(String group) {
+  //  this.group = group;
+  //  return this;
+  //}
 
   public ContactData withId(int id) {
     this.id = id;
@@ -173,7 +181,6 @@ public class ContactData {
             ", email1='" + email1 + '\'' +
             ", email2='" + email2 + '\'' +
             ", email3='" + email3 + '\'' +
-            ", group='" + group + '\'' +
             ", allphones='" + allphones + '\'' +
             ", home='" + home + '\'' +
             ", work='" + work + '\'' +
@@ -233,8 +240,14 @@ public class ContactData {
 
   public String getAllcontacts() { return allcontacts; }
 
-  public String getGroup() {
-    return group;
+  //public String getGroup() {
+  //  return group;
+  //}
+
+  //getter возвращает объект типа groups
+  public Groups getGroups() {
+    return new Groups(groups);
+
   }
 
   public File getPhoto() { return new File(photo);  }
@@ -282,6 +295,11 @@ public class ContactData {
     result = 31 * result + (contactdetails != null ? contactdetails.hashCode() : 0);
     result = 31 * result + (allcontacts != null ? allcontacts.hashCode() : 0);
     return result;
+  }
+
+  public ContactData inGroups(GroupData group) {
+    groups.add(group);
+    return this;
   }
 }
 

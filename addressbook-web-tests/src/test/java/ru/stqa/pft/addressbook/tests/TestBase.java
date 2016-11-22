@@ -1,5 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.remote.BrowserType;
 import org.slf4j.Logger;
@@ -10,9 +12,15 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.ContactData;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 /**
  * Created by Katya on 08.10.2016.
@@ -43,4 +51,29 @@ public class TestBase {
   public void logTestStop(Method m){
     logger.info("Stop test " + m.getName());
   }
+
+
+  public void verifyGroupListInUi() {
+    if (Boolean.getBoolean("verifyUI")) {
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      //нужно сраванивать те аттрибуты что видны в ui (аноним g функция) c id как у сравн объекта лист
+      //затем собираем при помощи коллектора
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet())));
+    }
+  }
+  public void verifyContactListInUi() {
+    if (Boolean.getBoolean("verifyUI")){
+      Groups dbGroups = app.db().groups();
+      Groups uiGroups = app.group().all();
+      //нужно сраванивать те аттрибуты что видны в ui (аноним g функция) c id как у сравн объекта лист
+      //затем собираем при помощи коллектора
+      assertThat(uiGroups, equalTo(dbGroups.stream()
+              .map((g) -> new GroupData().withId(g.getId()).withName(g.getName()))
+              .collect(Collectors.toSet() )));
+    }
+  }
+
 }
